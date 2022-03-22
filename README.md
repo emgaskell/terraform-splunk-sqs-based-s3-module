@@ -44,3 +44,56 @@ This module creates the resources in AWS required to set up the Splunk SQS based
 | s3_bucket_arn | String | | ARN of the existing ARN |
 | consumer_role_name | String | splunk_sqs_s3_access | Name of the IAM Role to attach to the Splunk instance. |
 | tags | Map | Map of KV pairs to tag resources with. |
+
+## Example Usage
+
+#### terraform.tfvars
+
+```
+region            = "eu-west-2"
+notifier_sqs_name = "sqs_notifier"
+notifier_sqs_settings = {
+  delay_seconds              = 0
+  max_message_size           = 262144
+  message_retention_seconds  = 86400
+  receive_wait_time_seconds  = 0
+  visibility_timeout_seconds = 300
+}
+notifier_sqs_dl_settings = {
+  delay_seconds              = 0
+  max_message_size           = 262144
+  message_retention_seconds  = 86400
+  receive_wait_time_seconds  = 0
+  visibility_timeout_seconds = 300
+}
+notifier_sns_name  = "notifier-sns"
+s3_bucket_name     = "my_s3_bucket"
+s3_bucket_arn      = "arn:aws:s3:::my_s3_bucket"
+consumer_role_name = "splunk-iam-role"
+tags = {
+  owner = "eg"
+}
+```
+
+#### Module 
+
+```
+module "sqs_based_s3" {
+  source                   = "github.com/emgaskell/terraform-splunk-sqs-based-s3-module.git"
+  region                   = var.region
+  notifier_sqs_name        = var.notifier_sqs_name
+  notifier_sqs_settings    = var.notifier_sqs_settings
+  notifier_sqs_dl_settings = var.notifier_sqs_dl_settings
+  notifier_sns_name        = var.notifier_sns_name
+  s3_bucket_name           = var.s3_bucket_name
+  s3_bucket_arn            = var.s3_bucket_arn
+  consumer_role_name       = var.consumer_role_name
+  tags                     = var.tags
+}
+```
+
+#### Manual Steps
+
+To use the infrastructure set up in the module:
+1. Attach the role in the terraform outputs to the EC2 instance running Splunk.
+2. Configure your SQS-based-S3 Splunk input.

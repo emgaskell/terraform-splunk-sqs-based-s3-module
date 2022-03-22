@@ -90,11 +90,11 @@ To use the infrastructure set up in the module:
 |---|---|---|---|
 | region | String | eu-west-2 | AWS Region in which to deploy resources. |
 | notifier_sqs_name | String | notifier_sqs | Name of the SQS Queue. |
-| notifier_sqs_queue_settings | object({delay_seconds              = number max_message_size           = number message_retention_seconds  = number receive_wait_time_seconds  = number visibility_timeout_seconds = number}) | { delay_seconds              = 0 max_message_size           = 262144 message_retention_seconds  = 86400 receive_wait_time_seconds  = 0 visibility_timeout_seconds = 300 } |
-| notifier_sqs_queue_dl_settings | object({delay_seconds              = number max_message_size           = number message_retention_seconds  = number receive_wait_time_seconds  = number visibility_timeout_seconds = number}) | { delay_seconds              = 0 max_message_size           = 262144 message_retention_seconds  = 86400 receive_wait_time_seconds  = 0 visibility_timeout_seconds = 300 } |
+| notifier_sqs_queue_settings | object({delay_seconds              = number max_message_size           = number message_retention_seconds  = number receive_wait_time_seconds  = number visibility_timeout_seconds = number}) | { delay_seconds              = 0 max_message_size           = 262144 message_retention_seconds  = 86400 receive_wait_time_seconds  = 0 visibility_timeout_seconds = 300 } | Settings for the SQS Queue |
+| notifier_sqs_queue_dl_settings | object({delay_seconds              = number max_message_size           = number message_retention_seconds  = number receive_wait_time_seconds  = number visibility_timeout_seconds = number}) | { delay_seconds              = 0 max_message_size           = 262144 message_retention_seconds  = 86400 receive_wait_time_seconds  = 0 visibility_timeout_seconds = 300 } | Settings for the dead letter SQS Queue. |
 | notifier_sns_name | String | notifier_sns | Name of the SNS Topic. |
 | s3_bucket_name | String | | Name of the existing S3 bucket. |
 | s3_bucket_arn | String | | ARN of the existing ARN |
 | consumer_role_name | String | splunk_sqs_s3_access | Name of the IAM Role to attach to the Splunk instance. |
-| tags | Map | Map of KV pairs to tag resources with. |
+| tags | Map | { environment = "dev"} | Map of KV pairs to tag resources with. |
 
